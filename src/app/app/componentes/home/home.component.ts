@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit {
     this.service.DataIot().subscribe(async(resp:any)=>{
         let {data} = resp;
         for await (const medidas of data) {
-          this.tiempo.push(medidas.tiempo);
-          this.ppm.push(medidas.ppm); 
-          
+          this.ppm.push(medidas.ppm);      
+          let medida = this.ObtenerHora(medidas)
+          this.tiempo.push(medida);
         }
         new Chart(ctx, {
           type: 'bar',
@@ -51,5 +51,13 @@ export class HomeComponent implements OnInit {
   
     
   }
-
+  /**Cambia e formato timestamp a la hora para pasarla en el formato */
+  ObtenerHora(medidas:any){
+    let tiempo = new Date(medidas.tiempo);
+    let hora = tiempo.getHours();
+    let minutos = tiempo.getMinutes();
+    let segundos = tiempo.getSeconds();
+    let medida = `${hora}:${minutos}:${segundos}`
+    return medida
+  }
 }
