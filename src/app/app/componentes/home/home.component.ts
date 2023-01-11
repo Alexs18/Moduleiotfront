@@ -54,6 +54,13 @@ export class HomeComponent implements OnInit {
   /**Cambia e formato timestamp a la hora para pasarla en el formato */
   ObtenerHora(medidas:any){
     let tiempo = new Date(medidas.tiempo);
+    console.log('la fecha');
+    console.log(tiempo.getDate());
+    
+    let dia = tiempo.getDay();
+    console.log('el dia');
+    console.log(dia);
+    
     let hora = tiempo.getHours();
     let minutos = tiempo.getMinutes();
     let segundos = tiempo.getSeconds();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Route } from '@angular/router';
+import { Route, RouterLink } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -7,13 +8,20 @@ import { Route } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  
+  constructor(private sessionService: SessionService) { }
 
-  constructor() { }
-
+  user:string = ''
+  password:string = ''
   ngOnInit(): void {
   }
   Login(){
-    // this.route.redirectTo('home'); 
+    this.sessionService.Login({user:this.user, password: this.password}).subscribe((resp:any)=>{
+      let {status} = resp;
+      if (status) {
+        console.log('pasa a la ventana de login...');
+      }
+    }) 
   }
 
 }
